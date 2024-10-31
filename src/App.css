@@ -11,45 +11,99 @@ body {
 
 .dashboard {
   display: flex;
+  flex-direction: column;
   height: 100vh;
 }
 
-/* Sidebar styling */
-.sidebar {
-  width: 250px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
   background-color: #333;
   color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
 }
 
-.sidebar h2 {
+.business-title {
   font-size: 24px;
-  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.sidebar ul {
-  list-style: none;
-  width: 100%;
+.nav-links {
+  display: flex;
+  gap: 15px;
 }
 
-.sidebar ul li {
-  padding: 15px;
-  text-align: center;
-  width: 100%;
-  cursor: pointer;
+.nav-link {
   color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 5px;
   transition: background-color 0.3s;
 }
 
-.sidebar ul li:hover,
-.sidebar ul li.active {
+.nav-link:hover {
   background-color: #555;
 }
 
-/* Main content styling */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  padding: 8px 12px;  
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-button.open {
+  background-color: #007bff;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translate(-8px);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+}
+
+.dropdown-item:hover {
+  background-color: #f4f6f9;
+}
+
 .main-content {
   flex: 1;
   padding: 20px;
@@ -78,23 +132,6 @@ header h1 {
   color: #333;
 }
 
-
-.login-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.login-button:hover {
-  background-color: #0056b3;
-}
-
-
 .auth-container {
   display: flex;
   flex-direction: column;
@@ -102,15 +139,6 @@ header h1 {
   justify-content: center;
   height: 100vh;
   background-color: #f4f6f9;
-}
-
-h2 {
-  margin-bottom: 20px;
-}
-
-.error {
-  color: red;
-  margin-bottom: 15px;
 }
 
 .login-form {
@@ -155,18 +183,41 @@ h2 {
   background-color: #c9302c;
 }
 
-
 .auth-button {
-  padding: 10px 20px;
+  padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+  font-size: 16px;
   text-decoration: none;
 }
 
 .auth-button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.login-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.login-button:hover {
   background-color: #0056b3;
 }

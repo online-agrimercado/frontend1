@@ -4,27 +4,43 @@ import './App.css';
 
 const Dashboard = ({ isLoggedIn, onLogout }) => {
   const [activeSection, setActiveSection] = useState("Home");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleNavigation = (section) => {
     setActiveSection(section);
+    setDropdownOpen(false);
   };
 
   return (
     <div className="dashboard">
-      <nav className="sidebar">
-        <h2>My Dashboard</h2>
-        <ul>
-          <li onClick={() => handleNavigation("Home")} className={activeSection === "Home" ? "active" : ""}>Home</li>
-          <li onClick={() => handleNavigation("Profile")} className={activeSection === "Profile" ? "active" : ""}>Profile</li>
-          <li onClick={() => handleNavigation("Settings")} className={activeSection === "Settings" ? "active" : ""}>Settings</li>
-          <li onClick={() => handleNavigation("Reports")} className={activeSection === "Reports" ? "active" : ""}>Reports</li>
-          <li onClick={() => handleNavigation("Support")} className={activeSection === "Support" ? "active" : ""}>Support</li>
-        </ul>
-        {isLoggedIn ? (
-          <button onClick={onLogout} className="auth-button">Logout</button>
-        ) : (
-          <Link to="/login" className="auth-button">Login</Link>
-        )}
+      <nav className="navbar">
+        <div className="business-title">Business Title</div>
+        <div className="nav-links">
+          <Link to="/auction" className="nav-link">Auction</Link>
+          <div className="dropdown">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`dropdown-button ${dropdownOpen ? 'open' : ''}`}
+            >
+              Account
+            </button>
+            <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
+              <button
+                className="dropdown-item"
+                onClick={() => handleNavigation("Profile")}
+              >
+                Profile
+              </button>
+              {isLoggedIn ? (
+                <button className="dropdown-item auth-button" onClick={onLogout}>
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login" className="dropdown-item auth-button">Login</Link>
+              )}
+            </div>
+          </div>
+        </div>
       </nav>
       <div className="main-content">
         <header>
@@ -41,9 +57,6 @@ const Dashboard = ({ isLoggedIn, onLogout }) => {
             </div>
           )}
           {activeSection === "Profile" && <p>Here’s where your profile information goes.</p>}
-          {activeSection === "Settings" && <p>Adjust your settings here.</p>}
-          {activeSection === "Reports" && <p>Check your reports here.</p>}
-          {activeSection === "Support" && <p>Get support here.</p>}
         </section>
       </div>
     </div>
