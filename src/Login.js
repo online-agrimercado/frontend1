@@ -23,6 +23,7 @@ const Login = ({ onLogin }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
       });
+      
       if (!response.ok) {
         const data = await response.json();
         if (isRegister && data.message === 'Email already exists') {
@@ -30,6 +31,7 @@ const Login = ({ onLogin }) => {
         }
         throw new Error(data.message || `${isRegister ? 'Registration' : 'Login'} failed`);
       }
+      
       if (isRegister) {
         setMessage('Successfully registered.');
         setErrorMessage('');
@@ -38,13 +40,15 @@ const Login = ({ onLogin }) => {
         onLogin();
         navigate('/');
       }
+      
       setTimeout(() => setMessage(''), 3000);
+      
       if (isRegister) {
         setIsRegister(false);
       }
     } catch (error) {
-      if (error.message === 'Failed to fetch') {
-        setErrorMessage('Backend is offline. Please try again later.');
+      if (error.message === 'Failed to fetch' || error.message.includes('NetworkError')) {
+        setErrorMessage('Backend is offline or unreachable. Please try again later.');
       } else {
         setErrorMessage(error.message);
       }
