@@ -23,8 +23,8 @@ const Login = ({ onLogin }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
       });
-      const data = await response.json();
       if (!response.ok) {
+        const data = await response.json();
         if (isRegister && data.message === 'Email already exists') {
           throw new Error('This email is already registered in the database.');
         }
@@ -43,7 +43,11 @@ const Login = ({ onLogin }) => {
         setIsRegister(false);
       }
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.message === 'Failed to fetch') {
+        setErrorMessage('Backend is offline. Please try again later.');
+      } else {
+        setErrorMessage(error.message);
+      }
       setMessage('');
     }
   };
