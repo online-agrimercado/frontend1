@@ -23,7 +23,7 @@ const Login = ({ onLogin }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
       });
-      
+
       if (!response.ok) {
         const data = await response.json();
         if (isRegister && data.message === 'Email already exists') {
@@ -31,7 +31,7 @@ const Login = ({ onLogin }) => {
         }
         throw new Error(data.message || `${isRegister ? 'Registration' : 'Login'} failed`);
       }
-      
+
       if (isRegister) {
         setMessage('Successfully registered.');
         setErrorMessage('');
@@ -40,9 +40,8 @@ const Login = ({ onLogin }) => {
         onLogin();
         navigate('/');
       }
-      
+
       setTimeout(() => setMessage(''), 3000);
-      
       if (isRegister) {
         setIsRegister(false);
       }
