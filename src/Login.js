@@ -15,7 +15,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://147.185.221.20:48289/api/login', {
+      const response = await fetch('https://f5c6-103-105-214-47.ngrok-free.app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
