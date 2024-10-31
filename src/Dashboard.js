@@ -14,9 +14,9 @@ const Dashboard = ({ isLoggedIn, onLogout }) => {
   return (
     <div className="dashboard">
       <nav className="navbar">
-        <div className="business-title">Business Title</div>
+        <div className="business-title" onClick={() => handleNavigation("Home")}>Business Title</div>
         <div className="nav-links">
-          <Link to="/auction" className="nav-link">Auction</Link>
+          <button className="nav-link" onClick={() => handleNavigation("Auction")}>Auction</button>
           <div className="dropdown">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -56,6 +56,7 @@ const Dashboard = ({ isLoggedIn, onLogout }) => {
               )}
             </div>
           )}
+          {activeSection === "Auction" && <p>This is the auction content.</p>}
           {activeSection === "Profile" && <p>Here’s where your profile information goes.</p>}
         </section>
       </div>
