@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './App.css';
 
 const Login = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,12 +21,11 @@ const Login = ({ onLogin }) => {
         body: JSON.stringify(credentials),
       });
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
-
-      onLogin(); // Call the login handler passed from App
+      onLogin();
+      navigate('/'); 
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -33,7 +35,7 @@ const Login = ({ onLogin }) => {
     <div className="auth-container">
       <h2>Login</h2>
       {errorMessage && <p className="error">{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="email"
           name="email"
@@ -41,6 +43,7 @@ const Login = ({ onLogin }) => {
           value={credentials.email}
           onChange={handleChange}
           required
+          className="input-field"
         />
         <input
           type="password"
@@ -49,8 +52,9 @@ const Login = ({ onLogin }) => {
           value={credentials.password}
           onChange={handleChange}
           required
+          className="input-field"
         />
-        <button type="submit">Login</button>
+        <button type="submit" className="submit-button">Login</button>
       </form>
     </div>
   );
