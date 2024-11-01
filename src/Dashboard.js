@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
-const Dashboard = ({ isLoggedIn, userId, username, onLogout }) => {
+const Dashboard = ({ isLoggedIn, userId, onLogout }) => {
   const [activeSection, setActiveSection] = useState('Home');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -75,7 +75,7 @@ const Dashboard = ({ isLoggedIn, userId, username, onLogout }) => {
         <section className="content">
           {activeSection === 'Home' && (
             <div>
-              {isLoggedIn ? (
+              {isLoggedIn && userInfo ? (
                 <p>Welcome back, {userInfo.username}</p>
               ) : (
                 <p>Welcome! Please log in to access more features.</p>
