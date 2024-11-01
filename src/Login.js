@@ -24,8 +24,9 @@ const Login = ({ onLogin }) => {
         body: JSON.stringify(credentials),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         if (isRegister && data.message === 'Email already exists') {
           throw new Error('This email is already registered in the database.');
         }
@@ -36,8 +37,10 @@ const Login = ({ onLogin }) => {
         setMessage('Successfully registered.');
         setErrorMessage('');
       } else {
+        if (!data.id) throw new Error('User ID not found in login response');
         setMessage('Successfully logged in.');
-        onLogin();
+        setErrorMessage('');
+        onLogin(data.id);
         navigate('/');
       }
 
@@ -46,11 +49,7 @@ const Login = ({ onLogin }) => {
         setIsRegister(false);
       }
     } catch (error) {
-      if (error.message === 'Failed to fetch' || error.message.includes('NetworkError')) {
-        setErrorMessage('Backend is offline or unreachable. Please try again later.');
-      } else {
-        setErrorMessage(error.message);
-      }
+      setErrorMessage(error.message);
       setMessage('');
     }
   };
